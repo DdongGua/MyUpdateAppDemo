@@ -5,7 +5,7 @@ package com.example.myupdateappdemo.activity.httputils;
 
 import java.io.IOException;
 
-;import okhttp3.Call;
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -17,7 +17,7 @@ import okhttp3.Response;
 public  abstract class BaseCallBack<T> implements Callback {
 
 
-    //当访问返回400 404时调用（一般是token传错，参数传错）
+//    当访问返回400 404时调用（一般是token传错，参数传错）;
     public abstract void onError();
 
     public abstract void onSuccess(Response response);

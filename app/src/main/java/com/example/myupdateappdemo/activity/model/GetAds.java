@@ -2,6 +2,7 @@ package com.example.myupdateappdemo.activity.model;
 
 import android.text.TextUtils;
 
+import com.example.myupdateappdemo.activity.Constants.HttpConstants;
 import com.example.myupdateappdemo.activity.bean.GuideBean;
 import com.example.myupdateappdemo.activity.httputils.BaseCallBack;
 import com.example.myupdateappdemo.activity.httputils.OkHttpUtils;
@@ -56,6 +57,10 @@ public abstract class GetAds {
 
             }
         });
+    }
+    public static  void getAds2(BaseCallBack callBack){
+        OkHttpUtils.getInstance().postData(HttpConstants.ADS,null,callBack);
+
     }
 
 

@@ -59,6 +59,7 @@ public class GuideActivity extends BaseActivity implements View.OnClickListener 
         setContentView(R.layout.activity_guide);
         if ((boolean) SpUtils.getInstance(this, "config").getSp("isfirst", false)) {
             startActivity(new Intent(GuideActivity.this, SplashActivity.class));
+            return;
         }
         initData();
         initView();

@@ -117,4 +117,10 @@ public class AdsAdapter extends PagerAdapter {
             }
         });
     }
+    public void stopLoop(){
+        if (timer!=null){
+            timer.cancel();
+            timer=null;
+        }
+    }
 }

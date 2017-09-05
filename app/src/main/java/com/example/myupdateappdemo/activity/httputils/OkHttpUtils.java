@@ -73,21 +73,20 @@ public class OkHttpUtils {
         Call call = okHttpClient.newCall(request);
         call.enqueue(callback);
     }
-
-    public void postData(String url, Map<String, String> paramMap, BaseCallBack callBack) {
+    public void postData(String url,Map<String,String> paramMap,BaseCallBack callBack){
         Request.Builder builder = new Request.Builder();
-        Set<Map.Entry<String, String>> entries = paramMap.entrySet();
         FormBody.Builder formBody = new FormBody.Builder();
-        if (paramMap == null) {
+        if (paramMap==null){
             FormBody body = formBody.build();
             Request request = builder.url(url)
                     .post(body)
                     .build();
             Call call = okHttpClient.newCall(request);
             call.enqueue(callBack);
-        } else {
-            for (Map.Entry<String, String> map : entries) {
-                formBody.add(map.getKey(), map.getValue());
+        }else{
+            Set<Map.Entry<String, String>> entries = paramMap.entrySet();
+            for (Map.Entry<String, String> map:entries){
+                formBody.add(map.getKey(),map.getValue());
             }
             FormBody body = formBody.build();
             Request request = builder.url(url)
@@ -95,12 +94,12 @@ public class OkHttpUtils {
                     .build();
             Call call = okHttpClient.newCall(request);
             call.enqueue(callBack);
+
         }
 
 
-    }
 
-    ;
+    };
 
     //上传图片的post请求
     public void postMult(String url, String imageParam, Map<String, String> paramMap, BaseCallBack callBack

@@ -10,12 +10,21 @@ android {
         versionCode 2
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
-            minifyEnabled false
+            //true的话为代码混淆
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
@@ -30,7 +39,22 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.okhttp:okhttp:1.6.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:1.6.0'
     compile 'com.squareup.okio:okio:1.5.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.android.support:recyclerview-v7:24.+'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'org.zackratos:ultimatebar:1.0.3'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile files('libs/RxAndroid.jar')
+    compile 'io.reactivex:rxjava:1.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.jakewharton:disklrucache:2.0.2'
+
+
 }

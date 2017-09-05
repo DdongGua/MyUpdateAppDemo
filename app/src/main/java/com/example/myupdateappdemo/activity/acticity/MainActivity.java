@@ -2,6 +2,7 @@ package com.example.myupdateappdemo.activity.acticity;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -17,16 +19,23 @@ import android.widget.Toast;
 import com.example.myupdateappdemo.R;
 import com.example.myupdateappdemo.activity.base.BaseActivity;
 import com.example.myupdateappdemo.activity.bean.UpdateAppBean;
+import com.example.myupdateappdemo.activity.event.InforEvent;
 import com.example.myupdateappdemo.activity.fragment.Chat_Fragment;
+import com.example.myupdateappdemo.activity.fragment.Main2_Fragment;
 import com.example.myupdateappdemo.activity.fragment.Main_Fragment;
 import com.example.myupdateappdemo.activity.fragment.Mine_Fragment;
 import com.example.myupdateappdemo.activity.httputils.BaseCallBack;
 import com.example.myupdateappdemo.activity.httputils.OkHttpUtils;
 import com.example.myupdateappdemo.activity.utils.DialogUtils;
 import com.example.myupdateappdemo.activity.utils.PackageUtils;
+import com.example.myupdateappdemo.activity.utils.SimpleImageLoader;
 import com.example.myupdateappdemo.activity.widget.BottomIndicator;
+import com.example.myupdateappdemo.activity.widget.TabFragmentHost;
 import com.google.gson.Gson;
 
+
+import org.greenrobot.eventbus.EventBus;
+import org.zackratos.ultimatebar.UltimateBar;
 
 import java.io.IOException;
 
@@ -93,12 +102,14 @@ public class MainActivity extends BaseActivity {
     private String currentVersion;
     private String version;
     private UpdateAppBean.DataBean data;
-    private FragmentTabHost tabhost;
+    private TabFragmentHost tabhost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        UltimateBar ultimateBar = new UltimateBar(this);
+        ultimateBar.setTransparentBar(Color.BLUE, 50);
         checkUpdate();
         initView();
 
@@ -108,12 +119,12 @@ public class MainActivity extends BaseActivity {
 //        View bottomIndicator = getBottomIndicator();
 //        View chatIndicator=getBottomIndicator();
 //        View mineIndicator=getBottomIndicator();
-        tabhost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        tabhost = (TabFragmentHost) findViewById(android.R.id.tabhost);
         tabhost.setup(this,getSupportFragmentManager(),android.R.id.tabcontent);
         TabHost.TabSpec mainSpec=tabhost.newTabSpec("home").setIndicator(getBottomIndicator("首页",R.drawable.selector_main));
         TabHost.TabSpec chatSpec=tabhost.newTabSpec("chat").setIndicator(getBottomIndicator("聊天",R.drawable.selector_chat));
         TabHost.TabSpec mineSpec=tabhost.newTabSpec("mine").setIndicator(getBottomIndicator("个人中心",R.drawable.selector_mine));
-        tabhost.addTab(mainSpec,Main_Fragment.class,null);
+        tabhost.addTab(mainSpec,Main2_Fragment.class,null);
         tabhost.addTab(chatSpec,Chat_Fragment.class,null);
         tabhost.addTab(mineSpec,Mine_Fragment.class,null);
 
@@ -127,6 +138,14 @@ public class MainActivity extends BaseActivity {
         tv.setText(title);
         iv.setBackgroundResource(drawable);
         return v;
+    }
+    public void send(View v){
+       EventBus.getDefault().post(new InforEvent("懒懒","北京",10));
+        try {
+            SimpleImageLoader.getInstance().removeFromDisk("https://n.sinaimg.cn/tech/crawl/20170226/yrbm-fyawhqy2124261.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void checkUpdate() {
